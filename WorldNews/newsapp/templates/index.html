@@ -1,0 +1,217 @@
+<!-- homepage of WorldNews application consisting of forms for Today's News Mode and Search Mode -->
+
+{% load static %}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{%  static 'bootstrap-3.3.7-dist/css/bootstrap-theme.min.css' %}">
+    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <title>Home</title>
+    <script>
+        // function to validate if the input countries are different in Today's News Mode
+        function validateTodayNewsModeForm() {
+            var form = document.getElementById('todaynewsmode');
+            var country_1 = form['elements']['country_1'].value;
+            var country_2 = form['elements']['country_2'].value;
+            // if countries are same, raise error alert
+            if (country_1 == country_2){
+                alert('Please enter different countries');
+                return false;
+            }
+        }
+        // function to validate if the input countries are different and query field is not empty in Search Mode
+        function validateSearchModeForm() {
+            var form = document.getElementById('searchmode');
+            var query = form['elements']['query'].value;
+            var country_1 = form['elements']['country_1'].value;
+            var country_2 = form['elements']['country_2'].value;
+            // if countries are same and query field is empty, raise error alert
+            if (country_1 == country_2 && query == ''){
+                alert('Please enter different countries and valid query term');
+                return false;
+            }
+            // if query field is empty, raise error alert
+            else if (query == ''){
+                alert('Please enter valid query term');
+                return false;
+            }
+            // if countries are same, raise error alert
+            else if (country_1 == country_2){
+                alert('Please enter different countries');
+                return false;
+            }
+        }
+    </script>
+</head>
+
+<body style = "background:#DCDCDC">
+
+<div class = "jumbotron">
+    <h1 align = "center"><strong>WorldNews</strong></h1>
+    <h4 align = "center"><i>A news retrieval, translation and visualization tool</i></h4>
+</div>
+
+<div class="container">
+    <ul class="nav nav-pills nav-justified ">
+        <li id = "todaynews" role="presentation" class="active" onclick="toggleMode('todaynews')"><a>Today's News Mode</a></li>
+        <li id = "search" role="presentation" onclick="toggleMode('search')"><a>Search Mode</a></li>
+    </ul>
+</div>
+
+<!-- Today's News Mode Form which submitted directs to today_news.html -->
+<form id="todaynewsmode" action= "/today_news/" method="post" onsubmit=" return validateTodayNewsModeForm();">
+    {% csrf_token %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <ul>
+                    <li class="list-group-item" style="background:#DCDCDC">
+                        <label for = "country_1"><h4>Enter Country 1:</h4></label>
+                        <select id = "country_1" class="form-control" name = "country_1" value = "au">Australia
+                            <option value = "au">Australia</option>
+                            <option value = "pt-BR_br">Brazil</option>
+                            <option value = "cn">China</option>
+                            <option value = "fr">France</option>
+                            <option value = "de">Germany</option>
+                            <option value = "in">India</option>
+                            <option value = "jp">Japan</option>
+                            <option value = "ru_ru">Russia</option>
+                            <option value = "es">Spain</option>
+                            <option value = "uk">U.K.</option>
+                            <option value = "us">U.S.A.</option>
+                        </select>
+                    </li>
+                    <li class="list-group-item" style="background:#DCDCDC">
+                        <label for = "country_2"><h4>Enter Country 2:</h4></label>
+                        <select id = "country_2" class="form-control" name = "country_2" value = "au">Australia
+                            <option value = "au">Australia</option>
+                            <option value = "pt-BR_br">Brazil</option>
+                            <option value = "cn">China</option>
+                            <option value = "fr">France</option>
+                            <option value = "de">Germany</option>
+                            <option value = "in">India</option>
+                            <option value = "jp">Japan</option>
+                            <option value = "ru_ru">Russia</option>
+                            <option value = "es">Spain</option>
+                            <option value = "uk">U.K.</option>
+                            <option value = "us">U.S.A.</option>
+                        </select>
+                    </li>
+                    <li class="list-group-item" style="background:#DCDCDC">
+                        <label for = "category"><h4>Enter Category:</h4></label>
+                        <select id = "category" class="form-control" name = "category" value = "Home">
+                            <option value = "n">Home</option>
+                            <option value = "w">World</option>
+                            <option value = "b">Business</option>
+                            <option value = "e">Entertainment</option>
+                            <option value = "s">Sports</option>
+                            <option value = "m">Health</option>
+                        </select>
+                    </li>
+                </ul>
+                <div class="col-md-offset-6">
+                    <input type = "submit" class="btn btn-primary" name = "today_news_mode_submit" value = "Submit">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</form>
+
+<!-- Search Mode Form which submitted directs to search.html -->
+<form id="searchmode" action= "/search/" method="post" onsubmit=" return validateSearchModeForm();">
+    {% csrf_token %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <ul>
+                    <li class="list-group-item" style="background:#DCDCDC">
+                        <div class="input-group">
+                            <input id="query" type="text" class="form-control" name="query" placeholder="Search for...">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-primary">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="list-group-item" style="background:#DCDCDC">
+                        <label for = "country_1"><h4>Enter Country 1:</h4></label>
+                        <select id = "country_1" class="form-control" name = "country_1" value = "au">Australia
+                            <option value = "au">Australia</option>
+                            <option value = "pt-BR_br">Brazil</option>
+                            <option value = "cn">China</option>
+                            <option value = "fr">France</option>
+                            <option value = "de">Germany</option>
+                            <option value = "in">India</option>
+                            <option value = "jp">Japan</option>
+                            <option value = "ru_ru">Russia</option>
+                            <option value = "es">Spain</option>
+                            <option value = "uk">U.K.</option>
+                            <option value = "us">U.S.A.</option>
+                        </select>
+                    </li>
+                    <li class="list-group-item" style="background:#DCDCDC">
+                        <label for = "country_2"><h4>Enter Country 2:</h4></label>
+                        <select id = "country_2" class="form-control" name = "country_2" value = "au">Australia
+                            <option value = "au">Australia</option>
+                            <option value = "pt-BR_br">Brazil</option>
+                            <option value = "cn">China</option>
+                            <option value = "fr">France</option>
+                            <option value = "de">Germany</option>
+                            <option value = "in">India</option>
+                            <option value = "jp">Japan</option>
+                            <option value = "ru_ru">Russia</option>
+                            <option value = "es">Spain</option>
+                            <option value = "uk">U.K.</option>
+                            <option value = "us">U.S.A.</option>
+                        </select>
+                    </li>
+                </ul>
+                <div class="col-md-offset-6">
+                    <input type = "submit" class="btn btn-primary" name = "search_mode_submit" value = "Submit">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="container col-md-12">
+    <div style="font-family:courier">
+        <div class="col-md-4" style="text-align: center">
+            <p>FYP SCE16-0112 HOW THE WORLD VIEWS ITSELF?</p>
+        </div>
+
+        <div class="col-md-4" style="text-align: center">
+            <p>Prepared by Ramakrishnan Vrajaraj</p>
+        </div>
+
+        <div class="col-md-4" style="text-align: center">
+            <p>School of Computer Science & Engineering, NTU</p>
+        </div>
+    </div>
+</div>
+</body>
+
+<!-- function to toggle between modes -->
+<script type = "text/javascript">
+    $('#searchmode').hide();
+    function toggleMode(str) {
+        if (str == "todaynews") {
+            $('#searchmode').hide();
+            $('#todaynewsmode').show();
+            $('#todaynews').addClass('active');
+            $('#search').removeClass('active');
+        } else if (str == "search") {
+            $('#searchmode').show();
+            $('#todaynewsmode').hide();
+            $('#todaynews').removeClass('active');
+            $('#search').addClass('active');
+        }
+    }
+</script>
+</html>

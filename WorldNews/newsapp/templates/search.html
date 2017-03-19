@@ -1,0 +1,83 @@
+<!-- Displays translated news articles retrieved for Search Mode -->
+
+{% load static %}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{%  static 'bootstrap-3.3.7-dist/css/bootstrap-theme.min.css' %}">
+    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <title>Search Mode</title>
+</head>
+
+<body style = "background:#DCDCDC">
+
+<div class = "jumbotron">
+    <h1 align = "center"><strong>WorldNews</strong></h1>
+    <h4 align = "center"><i>A news retrieval, translation and visualization tool</i></h4>
+</div>
+
+<div class="row">
+    <!-- Display Query Term searched for -->
+    <h2 style="text-align: center"><strong><i>You searched for '{{ query }}'</i></strong></h2><br>
+    <div class="col-md-6" style="padding-right:2%; border-right: 3px solid;">
+        <!-- Display Country 1 -->
+        <h3 style="text-align: center"><i>{{ country_1_name }} Edition</i></h3><br>
+        <!-- Display title, URL link, published date, description of each news article for Country 1 -->
+        {% for title_1, link_1, pub_date_1, description_1 in zipped_list_1 %}
+            <h4><a href= {{ link_1 }}>{{ title_1 }}</a></h4>
+            <h5><i>{{ pub_date_1 }}</i></h5>
+            <p>{{ description_1 }}</p><br>
+        {% endfor %}
+    </div>
+
+    <div class="col-md-6">
+        <!-- Display Country 2 -->
+        <h3 style="text-align: center"><i>{{ country_2_name }} Edition</i></h3><br>
+        <!-- Display title, URL link, published date, description of each news article for Country 2 -->
+        {% for title_2, link_2, pub_date_2, description_2 in zipped_list_2 %}
+            <h4><a href= {{ link_2 }}>{{ title_2 }}</a></h4>
+            <h5><i>{{ pub_date_2 }}</i></h5>
+            <p>{{ description_2 }}</p><br>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="col-md-12" style="height:10%;"></div>
+
+<div class="row">
+    <div class="col-md-6" style="text-align: center">
+        <!-- Submit button for sentiment analysis visualization -->
+        <form action="/sentiment_analysis/" method="post">
+            {% csrf_token %}
+            <input type = "submit" class="btn btn-primary" name = "sentiment_analysis_submit" value = "Generate Sentiment Analysis"/>
+        </form>
+    </div>
+
+    <div class="col-md-6" style="text-align: center">
+        <a href="{% url "newsapp:index" %}" class="btn btn-danger">Go Back to Home</a>
+    </div>
+</div>
+
+<div class="col-md-12" style="height:10%;"></div>
+
+<div class="container col-md-12">
+    <div style="font-family:courier">
+        <div class="col-md-4" style="text-align: center">
+            <p>FYP SCE16-0112 HOW THE WORLD VIEWS ITSELF?</p>
+        </div>
+
+        <div class="col-md-4" style="text-align: center">
+            <p>Prepared by Ramakrishnan Vrajaraj</p>
+        </div>
+
+        <div class="col-md-4" style="text-align: center">
+            <p>School of Computer Science & Engineering, NTU</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

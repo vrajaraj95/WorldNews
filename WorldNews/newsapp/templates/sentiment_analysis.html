@@ -1,0 +1,74 @@
+<!-- Displays sentiment analysis visualization for Search Mode -->
+
+{% load static %}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{%  static 'bootstrap-3.3.7-dist/css/bootstrap-theme.min.css' %}">
+    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <title>Sentiment Analysis Visualization</title>
+</head>
+
+<body style = "background:#DCDCDC">
+
+<div class = "jumbotron">
+    <h1 align = "center"><strong>WorldNews</strong></h1>
+    <h4 align = "center"><i>A news retrieval, translation and visualization tool</i></h4>
+</div>
+
+<div class="row" style="vertical-align: middle">
+    <!-- Display Query Term searched for -->
+    <h2 style="text-align: center"><strong><i>Sentiment Analysis Visualization for Results about '{{ query }}'</i></strong></h2><br>
+    <div class="col-md-12" style="margin: 0%; padding: 0%;">
+        <!-- Display sentiment analysis histogram -->
+        <img class="img-responsive" style="margin: 0 auto; border: 1px solid black;" src= "{% static 'images/sentiment_analysis.png' %}"></p>
+    </div>
+</div>
+
+<div class="col-md-12" style="height:10%;"></div>
+
+<div class="row" style="vertical-align: middle">
+    <div class="col-md-12" style="margin: 0%; padding: 0%;">
+        <!-- Display sentiment analysis pie chart for Country 1 -->
+        <img class="img-responsive" style="margin: 0 auto; border: 1px solid black;" src= "{% static 'images/pie_chart_1.png' %}"></p>
+    </div>
+</div>
+
+<div class="col-md-12" style="height:10%;"></div>
+
+<div class="row" style="vertical-align: middle">
+    <div class="col-md-12" style="margin: 0%; padding: 0%;">
+        <!-- Display sentiment analysis pie chart for Country 2 -->
+        <img class="img-responsive" style="margin: 0 auto; border: 1px solid black;" src= "{% static 'images/pie_chart_2.png' %}"></p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12" style="text-align: center">
+        <a href="{% url "newsapp:index" %}" class="btn btn-danger">Go Back to Home</a>
+    </div>
+</div>
+
+<div class="col-md-12" style="height:10%;"></div>
+
+<div class="container col-md-12">
+    <div style="font-family:courier">
+        <div class="col-md-4" style="text-align: center">
+            <p>FYP SCE16-0112 HOW THE WORLD VIEWS ITSELF?</p>
+        </div>
+
+        <div class="col-md-4" style="text-align: center">
+            <p>Prepared by Ramakrishnan Vrajaraj</p>
+        </div>
+
+        <div class="col-md-4" style="text-align: center">
+            <p>School of Computer Science & Engineering, NTU</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
